@@ -2,12 +2,18 @@
 
 HermitUniverse::HermitUniverse(double dt) : dt(dt) {}
 
-void HermitUniverse::addBody(mathing::Vec4 pos, mathing::Vec4 vel) {
-    body.push_back(new HermitBody(pos, vel));
+void HermitUniverse::addBody(mathing::Vec4 pos, mathing::Vec4 vel, double mass) {
+    body.push_back(new HermitBody(pos, vel, mass));
 }
 
-const std::vector<Body *> &HermitUniverse::getBodies() const {
-    auto b_list = std::vector<Body *>();
-    // for (auto b : body) b_list.push_back(dynamic_cast<Body*>(b));
-    return b_list; //FIXME
+void HermitUniverse::update(double time) {
+
+}
+
+std::vector<mathing::Vec4> HermitUniverse::getVelList() {
+    return std::vector<mathing::Vec4>();
+}
+
+std::vector<mathing::Vec4> HermitUniverse::getPosList() {
+    return std::vector<mathing::Vec4>();
 }

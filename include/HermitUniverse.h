@@ -12,9 +12,10 @@ protected:
 public:
     explicit HermitUniverse(double dt);
 
-    const std::vector<Body *> &getBodies() const override;
-
-    void addBody(mathing::Vec4 pos, mathing::Vec4 vel) override;
+    void addBody(mathing::Vec4 pos, mathing::Vec4 vel, double mass) override;
+    std::vector<mathing::Vec4> getPosList() override;
+    std::vector<mathing::Vec4> getVelList() override;
+    void update(double time) override;
 };
 
 

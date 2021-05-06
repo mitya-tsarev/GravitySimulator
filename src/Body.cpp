@@ -1,5 +1,8 @@
 #include "../include/Body.h"
 
+Body::Body(const mathing::Vec4 &pos, const mathing::Vec4 &vel, const mathing::Vec4 &accel, double mass) : pos(pos), vel(vel), mass(mass),
+                                                                              accel(accel) {}
+
 Body::Body(const mathing::Vec4 &pos, const mathing::Vec4 &vel, double mass) : pos(pos), vel(vel), mass(mass),
                                                                               accel(mathing::Vec4()) {}
 

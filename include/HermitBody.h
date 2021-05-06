@@ -5,13 +5,12 @@
 
 class HermitBody : public Body {
 protected:
-    mathing::Vec4 accel;
     mathing::Vec4 jerk;
 public:
     HermitBody(const mathing::Vec4 &pos, const mathing::Vec4 &vel, const mathing::Vec4 &accel,
                 const mathing::Vec4 &jerk, double mass);
 
-    HermitBody(const mathing::Vec4 &pos, const mathing::Vec4 &vel);
+    HermitBody(const mathing::Vec4 &pos, const mathing::Vec4 &vel, const double mass);
 
     HermitBody();
 };

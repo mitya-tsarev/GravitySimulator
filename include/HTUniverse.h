@@ -11,6 +11,9 @@ public:
     explicit HTUniverse(double dt);
 
     void addBody(mathing::Vec4 pos, mathing::Vec4 vel, double mass) override;
+    std::vector<mathing::Vec4> getPosList() override;
+    std::vector<mathing::Vec4> getVelList() override;
+    void update(double time) override;
 
     virtual void updateAccels() = 0;
 };

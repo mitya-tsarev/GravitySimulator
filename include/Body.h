@@ -11,6 +11,7 @@ protected:
     double mass;
 public:
     Body();
+    Body(const mathing::Vec4 &pos, const mathing::Vec4 &vel, const mathing::Vec4 &accel, double mass);
     Body(const mathing::Vec4 &pos, const mathing::Vec4 &vel, double mass);
 
     const mathing::Vec4 &getPos() const;

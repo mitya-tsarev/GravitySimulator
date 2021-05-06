@@ -5,13 +5,12 @@
 #include "Body.h"
 
 class AbstractUniverse {
-protected:
-    virtual const std::vector<Body *> &getBodies() const = 0;
 
 public:
-    std::vector<mathing::Vec4> getPosList();
-    std::vector<mathing::Vec4> getVelList();
+    virtual std::vector<mathing::Vec4> getPosList() = 0;
+    virtual std::vector<mathing::Vec4> getVelList() = 0;
     virtual void addBody(mathing::Vec4 pos, mathing::Vec4 vel, double mass) = 0;
+    virtual void update(double time) = 0;
 };
 
 
