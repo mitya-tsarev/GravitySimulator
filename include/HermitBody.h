@@ -9,7 +9,7 @@ protected:
     mathing::Vec4 jerk;
 public:
     HermitBody(const mathing::Vec4 &pos, const mathing::Vec4 &vel, const mathing::Vec4 &accel,
-                const mathing::Vec4 &jerk);
+                const mathing::Vec4 &jerk, double mass);
 
     HermitBody(const mathing::Vec4 &pos, const mathing::Vec4 &vel);
 

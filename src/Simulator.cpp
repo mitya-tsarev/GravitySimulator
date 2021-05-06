@@ -8,7 +8,7 @@ Simulator::Simulator(std::string initFile) : initFile(std::move(initFile)) {
 }
 
 void Simulator::addBodies() {
-    u->addBody(mathing::Vec4(179,3,1,0), mathing::Vec4());
+    u->addBody(mathing::Vec4(179,3,1,0), mathing::Vec4(), 1);
 }
 
 void Simulator::simulate(const std::string& outFile, double time) {

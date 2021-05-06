@@ -11,7 +11,7 @@ protected:
 public:
     std::vector<mathing::Vec4> getPosList();
     std::vector<mathing::Vec4> getVelList();
-    virtual void addBody(mathing::Vec4 pos, mathing::Vec4 vel) = 0;
+    virtual void addBody(mathing::Vec4 pos, mathing::Vec4 vel, double mass) = 0;
 };
 
 
