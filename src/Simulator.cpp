@@ -3,7 +3,7 @@
 #include <utility>
 
 Simulator::Simulator(std::string initFile) : initFile(std::move(initFile)) {
-    u = new BHUniverse(1);
+    u = new BarnesHutUniverse(1);
     addBodies();
 }
 

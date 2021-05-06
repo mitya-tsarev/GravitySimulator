@@ -1,14 +1,14 @@
-#ifndef GRAVITYSIMULATOR_HTUNIVERSE_H
-#define GRAVITYSIMULATOR_HTUNIVERSE_H
+#ifndef GRAVITYSIMULATOR_LINEARTIMEUNIVERSE_H
+#define GRAVITYSIMULATOR_LINEARTIMEUNIVERSE_H
 
 
 #include "AbstractUniverse.h"
 
-class HTUniverse : public AbstractUniverse {
+class LinearTimeUniverse : public AbstractUniverse {
     std::vector<Body *> body;
     double dt;
 public:
-    explicit HTUniverse(double dt);
+    explicit LinearTimeUniverse(double dt);
 
     void addBody(mathing::Vec4 pos, mathing::Vec4 vel, double mass) override;
     std::vector<mathing::Vec4> getPosList() override;
@@ -19,4 +19,4 @@ public:
 };
 
 
-#endif //GRAVITYSIMULATOR_HTUNIVERSE_H
+#endif //GRAVITYSIMULATOR_LINEARTIMEUNIVERSE_H

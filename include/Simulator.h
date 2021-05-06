@@ -1,7 +1,7 @@
 #ifndef GRAVITYSIMULATOR_SIMULATOR_H
 #define GRAVITYSIMULATOR_SIMULATOR_H
 
-#include "BHUniverse.h"
+#include "BarnesHutUniverse.h"
 
 
 class Simulator {

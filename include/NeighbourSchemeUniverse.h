@@ -1,16 +1,16 @@
-#ifndef GRAVITYSIMULATOR_HERMITUNIVERSE_H
-#define GRAVITYSIMULATOR_HERMITUNIVERSE_H
+#ifndef GRAVITYSIMULATOR_NEIGHBOURSCHEMEUNIVERSE_H
+#define GRAVITYSIMULATOR_NEIGHBOURSCHEMEUNIVERSE_H
 
 
 #include "AbstractUniverse.h"
 #include "HermitBody.h"
 
-class HermitUniverse : public AbstractUniverse {
+class NeighbourSchemeUniverse : public AbstractUniverse {
 protected:
     std::vector<HermitBody *> body;
     double dt;
 public:
-    explicit HermitUniverse(double dt);
+    explicit NeighbourSchemeUniverse(double dt);
 
     void addBody(mathing::Vec4 pos, mathing::Vec4 vel, double mass) override;
     std::vector<mathing::Vec4> getPosList() override;
@@ -19,4 +19,4 @@ public:
 };
 
 
-#endif //GRAVITYSIMULATOR_HERMITUNIVERSE_H
+#endif //GRAVITYSIMULATOR_NEIGHBOURSCHEMEUNIVERSE_H
