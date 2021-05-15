@@ -16,6 +16,7 @@ public:
     void Step();
     void SimpleStep();
     void RungeKuttaStep();
+    void EulerStep();
 
     void addBody(mathing::Vec4 pos, mathing::Vec4 vel, double mass) override;
     void update(double time) override;
