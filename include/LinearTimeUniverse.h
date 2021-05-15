@@ -14,6 +14,8 @@ public:
     int method = 0; //0 - Euler, 1 - Runge-Kutta
 
     void Step();
+    void SimpleStep();
+    void RungeKuttaStep();
 
     void addBody(mathing::Vec4 pos, mathing::Vec4 vel, double mass) override;
     void update(double time) override;

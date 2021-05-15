@@ -14,9 +14,25 @@ void LinearTimeUniverse::Step() {
     }
 }
 
+void LinearTimeUniverse::SimpleStep() {
+    updateAccels();
+    for(auto b : body){
+        b->setPos(b->getPos()+dt*b->getVel() + dt*dt*b->getAccel()/2);
+        b->setVel(b->getVel()+dt*b->getAccel());
+    }
+}
+
+void LinearTimeUniverse::RungeKuttaStep() {
+    updateAccels();
+    for(auto b : body){
+        b->setPos(b->getPos()+dt*b->getVel() + dt*dt*b->getAccel()/2);
+        b->setVel(b->getVel()+dt*b->getAccel());
+    }
+}
+
 void LinearTimeUniverse::update(double time) {
-    int32_t steps = global_time / time;
-    for (int32_t i = 0; i < steps; i++) Step();
+    uint32_t steps = (uint32_t) (global_time / time);
+    for (uint32_t i = 0; i < steps; i++) Step();
     global_time += time;
 }
 
