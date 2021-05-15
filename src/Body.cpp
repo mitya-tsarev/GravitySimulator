@@ -27,3 +27,11 @@ double Body::getMass() const {
 void Body::setAccel(const mathing::Vec4 &accel) {
     Body::accel = accel;
 }
+
+void Body::setPos(const mathing::Vec4 &pos) {
+    Body::pos = pos;
+}
+
+void Body::setVel(const mathing::Vec4 &vel) {
+    Body::vel = vel;
+}

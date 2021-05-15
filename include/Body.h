@@ -23,6 +23,10 @@ public:
     void setAccel(const mathing::Vec4 &accel);
 
     double getMass() const;
+
+    void setPos(const mathing::Vec4 &pos);
+
+    void setVel(const mathing::Vec4 &vel);
 };
 
 

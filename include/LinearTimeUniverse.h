@@ -13,7 +13,7 @@ public:
     explicit LinearTimeUniverse(double dt);
     int method = 0; //0 - Euler, 1 - Runge-Kutta
 
-    void setDt(double dt);
+    void Step();
 
     void addBody(mathing::Vec4 pos, mathing::Vec4 vel, double mass) override;
     void update(double time) override;

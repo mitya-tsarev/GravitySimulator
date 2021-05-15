@@ -6,8 +6,18 @@ void LinearTimeUniverse::addBody(mathing::Vec4 pos, mathing::Vec4 vel, double ma
     body.push_back(new Body(pos, vel, mass));
 }
 
+void LinearTimeUniverse::Step() {
+    updateAccels();
+    for(auto b : body){
+        b->setPos(b->getPos()+dt*b->getVel() + dt*dt*b->getAccel()/2);
+        b->setVel(b->getVel()+dt*b->getAccel());
+    }
+}
+
 void LinearTimeUniverse::update(double time) {
-    for (double t_final = global_time + time; global_time < t_final; global_time += dt) updateAccels();
+    int32_t steps = global_time / time;
+    for (int32_t i = 0; i < steps; i++) Step();
+    global_time += time;
 }
 
 std::vector<mathing::Vec4> LinearTimeUniverse::getVelList() {
@@ -20,8 +30,4 @@ std::vector<mathing::Vec4> LinearTimeUniverse::getPosList() {
     std::vector<mathing::Vec4> PosList;
     for(auto b : body) PosList.push_back(b->getPos());
     return PosList;
-}
-
-void LinearTimeUniverse::setDt(double dt) {
-    LinearTimeUniverse::dt = dt;
 }
