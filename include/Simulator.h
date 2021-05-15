@@ -9,13 +9,14 @@ private:
     std::string initFile;
     AbstractUniverse *u;
 
-    void addBodies();
+    void addBody(double m, double x, double y, double z, double vx, double vy, double vz);
 
 public:
     Simulator() = delete;
 
-    explicit Simulator(std::string initFile);
-    void simulate(const std::string& outFile, double time);
+    explicit Simulator(std::ifstream & inputfile);
+    std::vector<std::string> getwords (std::string sentence);
+    void simulate();
 };
 
 
