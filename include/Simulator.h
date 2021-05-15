@@ -2,6 +2,8 @@
 #define GRAVITYSIMULATOR_SIMULATOR_H
 
 #include "BarnesHutUniverse.h"
+#include "../include/SimpleUniverse.h"
+
 
 
 class Simulator {

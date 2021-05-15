@@ -29,15 +29,11 @@ Simulator::Simulator(std::ifstream &inputfile) {
         throw e;
     }
 
-    switch(words[1]) {
-        case "BarnesHutt":
-            u = new BarnesHutUniverse(0);
-            break;
-        //case "RungeKutta:
-        //    break;
-        //default:
-            // code block
-    }
+
+    if (words[1] == "BarnesHutt")
+        u = new BarnesHutUniverse(0);
+    if (words[1] == "RungeKutta")
+        u = new SimpleUniverse(0);
 
 
     while (getline(inputfile, line)) {
