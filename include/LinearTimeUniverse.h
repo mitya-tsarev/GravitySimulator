@@ -12,6 +12,8 @@ protected:
 public:
     explicit LinearTimeUniverse(double dt);
 
+    void setDt(double dt);
+
     void addBody(mathing::Vec4 pos, mathing::Vec4 vel, double mass) override;
     void update(double time) override;
     std::vector<mathing::Vec4> getPosList() override;

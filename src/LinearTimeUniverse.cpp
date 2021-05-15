@@ -21,3 +21,7 @@ std::vector<mathing::Vec4> LinearTimeUniverse::getPosList() {
     for(auto b : body) PosList.push_back(b->getPos());
     return PosList;
 }
+
+void LinearTimeUniverse::setDt(double dt) {
+    LinearTimeUniverse::dt = dt;
+}
