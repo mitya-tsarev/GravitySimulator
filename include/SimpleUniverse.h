@@ -5,7 +5,7 @@
 
 class SimpleUniverse : public LinearTimeUniverse {
     public:
-        explicit SimpleUniverse(double dt);
+        explicit SimpleUniverse(double dt, int method);
 
         void updateAccels() override;
 };

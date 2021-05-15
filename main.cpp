@@ -13,8 +13,6 @@ int main() {
     try {
         auto *simulator = new Simulator(inputfile);
         simulator->simulate();
-        std::cout << "sldkjf\n";
-
     }
     catch (const std::exception &e) {
         e.what();

@@ -1,6 +1,6 @@
 #include "../include/BarnesHutUniverse.h"
 
-BarnesHutUniverse::BarnesHutUniverse(double dt) : LinearTimeUniverse(dt) {}
+BarnesHutUniverse::BarnesHutUniverse(double dt, int method) : LinearTimeUniverse(dt) {}
 
 void BarnesHutUniverse::updateAccels() {
     }

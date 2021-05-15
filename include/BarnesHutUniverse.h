@@ -5,7 +5,7 @@
 
 class BarnesHutUniverse : public LinearTimeUniverse {
 public:
-    explicit BarnesHutUniverse(double dt);
+    explicit BarnesHutUniverse(double dt, int method);
 
     void updateAccels() override;
 };

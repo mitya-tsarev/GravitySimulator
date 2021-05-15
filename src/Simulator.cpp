@@ -12,34 +12,30 @@
 
 Simulator::Simulator(std::ifstream &inputfile) {
     std::string line;
+    std::string method;
     std::vector<std::string> words;
+    getline(inputfile, method);
     getline(inputfile, line);
-    std::cout << line;
     boost::split(words, line, boost::is_any_of("\t "));
+    double dt = std::stoi(words[1]);
+    boost::split(words, method, boost::is_any_of("\t "));
 
-    if (words.size() != 2) {
-        std::runtime_error e((std::string("Error on line 1: ") + line +
-                              std::string(". The first line should specify the method")).c_str());
-        throw e;
+    if (words[1] == "BarnesHutt") {
+        int m = 1;
+        if (words[2] == "Euler")
+            m = 0;
+        u = new BarnesHutUniverse(dt, m);
     }
-
-    if (words[0] != "method") {
-        std::runtime_error e((std::string("Error on line 1: ") + line +
-                              std::string(". The first line should specify the method")).c_str());
-        throw e;
+    if (words[1] == "Simple") {
+        int m = 1;
+        if (words[2] == "Euler")
+            m = 0;
+        u = new SimpleUniverse(dt, m);
     }
-
-
-    if (words[1] == "BarnesHutt")
-        u = new BarnesHutUniverse(0);
-    if (words[1] == "RungeKutta")
-        u = new SimpleUniverse(0);
-
 
     while (getline(inputfile, line)) {
-        std::cout << line << '\n';
+        boost::split(words, line, boost::is_any_of("\t "));
     }
-    //addBody();
 }
 
 std::vector<std::string> getwords(std::string sentence) {

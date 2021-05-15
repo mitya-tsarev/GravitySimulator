@@ -1,6 +1,6 @@
 #include "../include/SimpleUniverse.h"
 
-SimpleUniverse::SimpleUniverse(double dt) : LinearTimeUniverse(dt) {}
+SimpleUniverse::SimpleUniverse(double dt, int method) : LinearTimeUniverse(dt) {}
 
 void SimpleUniverse::updateAccels() {
     for(auto b : body){
