@@ -17,7 +17,7 @@ Simulator::Simulator(std::ifstream &inputfile) {
     getline(inputfile, method);
     getline(inputfile, line);
     boost::split(words, line, boost::is_any_of("\t "));
-    double dt = std::stoi(words[1]);
+    double dt = std::stod(words[1]);
     boost::split(words, method, boost::is_any_of("\t "));
 
     if (words[1] == "BarnesHutt") {
@@ -35,30 +35,24 @@ Simulator::Simulator(std::ifstream &inputfile) {
 
     while (getline(inputfile, line)) {
         boost::split(words, line, boost::is_any_of("\t "));
-    }
-}
-
-std::vector<std::string> getwords(std::string sentence) {
-    std::istringstream iss(sentence);
-    std::vector<std::string> tokens;
-    copy(std::istream_iterator<std::string>(iss),
-         std::istream_iterator<std::string>(),
-         back_inserter(tokens));
-    for (auto it = tokens.begin(); it != tokens.end(); it++) {
-        if (*it == "") {
-            tokens.erase(it);
-            it--;
+        if (words[0] == "create") {
+            if (words[1] == "body") {
+                u->addBody(mathing::Vec4(std::stod(words[3]), std::stod(words[4]), std::stod(words[5]), 0),
+                           mathing::Vec4(std::stod(words[6]), std::stod(words[7]), std::stod(words[8]), 0),
+                           std::stod(words[2]));
+            }
         }
+        if (words[0] == "run")
+            runtime = std::stod(words[1]);
+        if (words[0] == "nframes")
+            nframes = std::stod(words[1]);
     }
-    return tokens;
-}
-
-void Simulator::addBody(double m, double x, double y, double z, double vx, double vy, double vz) {
-    u->addBody(mathing::Vec4(x, y, z, 0), mathing::Vec4(vx, vy, vz, 0), m);
 }
 
 void Simulator::simulate() {
-    //auto list = u->getPosList();
-    //std::cout << "x position of first body is " << list[0].x << std::endl;
-    std::cout << "179\n";
+    for (int i = 0; i < nframes; i++) {
+        auto list = u->getPosList();
+        std::cout << list[1].x << ", " << list[1].y << '\n';
+        u->update(runtime / nframes);
+    }
 }
