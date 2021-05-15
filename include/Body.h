@@ -19,6 +19,10 @@ public:
     const mathing::Vec4 &getVel() const;
 
     const mathing::Vec4 &getAccel() const;
+
+    void setAccel(const mathing::Vec4 &accel);
+
+    double getMass() const;
 };
 
 

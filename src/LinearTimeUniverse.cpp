@@ -7,13 +7,17 @@ void LinearTimeUniverse::addBody(mathing::Vec4 pos, mathing::Vec4 vel, double ma
 }
 
 void LinearTimeUniverse::update(double time) {
-
+    for (double t_final = global_time + time; global_time < t_final; global_time += dt) updateAccels();
 }
 
 std::vector<mathing::Vec4> LinearTimeUniverse::getVelList() {
-    return std::vector<mathing::Vec4>();
+    std::vector<mathing::Vec4> VelList;
+    for(auto b : body) VelList.push_back(b->getVel());
+    return VelList;
 }
 
 std::vector<mathing::Vec4> LinearTimeUniverse::getPosList() {
-    return std::vector<mathing::Vec4>();
+    std::vector<mathing::Vec4> PosList;
+    for(auto b : body) PosList.push_back(b->getPos());
+    return PosList;
 }

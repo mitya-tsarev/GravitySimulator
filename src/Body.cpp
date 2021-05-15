@@ -19,3 +19,11 @@ const mathing::Vec4 &Body::getVel() const {
 const mathing::Vec4 &Body::getAccel() const {
     return accel;
 }
+
+double Body::getMass() const {
+    return mass;
+}
+
+void Body::setAccel(const mathing::Vec4 &accel) {
+    Body::accel = accel;
+}
