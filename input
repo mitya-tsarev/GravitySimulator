@@ -1,0 +1,5 @@
+method BarnesHut
+timestep 1
+create body 1 0 0 0 0 0 0
+create body 0.1 1 0 0 0 1 0
+run 1000
