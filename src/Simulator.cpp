@@ -1,14 +1,24 @@
 #include "../include/Simulator.h"
 
-#include <utility>
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <sstream>
-#include <stdexcept>
-#include <iterator>
-#include <boost/algorithm/string.hpp>
 
+
+// split string by any of the characters in the given string
+std::vector<std::string> splitString(std::string s, const std::string& delimiter_list) {
+
+    std::vector<std::string> words;
+    size_t pos = 0;
+    std::string token;
+    while ((pos = s.find_first_of(delimiter_list)) != std::string::npos) {
+        token = s.substr(0, pos);
+        words.push_back(token);
+        s.erase(0, pos + 1);
+    }
+    words.push_back(s);
+    return words;
+}
 
 Simulator::Simulator(std::ifstream &inputfile) {
     std::string line;
@@ -16,9 +26,9 @@ Simulator::Simulator(std::ifstream &inputfile) {
     std::vector<std::string> words;
     getline(inputfile, method);
     getline(inputfile, line);
-    boost::split(words, line, boost::is_any_of("\t "));
+    words = splitString(line, "\t ");
     double dt = std::stod(words[1]);
-    boost::split(words, method, boost::is_any_of("\t "));
+    words = splitString(method, "\t ");
 
     if (words[1] == "BarnesHutt") {
         int m = 1;
@@ -34,7 +44,7 @@ Simulator::Simulator(std::ifstream &inputfile) {
     }
 
     while (getline(inputfile, line)) {
-        boost::split(words, line, boost::is_any_of("\t "));
+        words = splitString(line, "\t ");
         if (words[0] == "create") {
             if (words[1] == "body") {
                 u->addBody(mathing::Vec4(std::stod(words[3]), std::stod(words[4]), std::stod(words[5]), 0),
