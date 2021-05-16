@@ -67,3 +67,9 @@ std::vector<mathing::Vec4> LinearTimeUniverse::getPosList() {
     return PosList;
 }
 
+std::vector<double> LinearTimeUniverse::getMassList() {
+    std::vector<double> MassList;
+    for(auto b : body) MassList.push_back(b->getMass());
+    return MassList;
+}
+

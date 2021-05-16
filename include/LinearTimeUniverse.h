@@ -23,6 +23,7 @@ public:
     void update(double time) override;
     std::vector<mathing::Vec4> getPosList() override;
     std::vector<mathing::Vec4> getVelList() override;
+    std::vector<double> getMassList() override;
     virtual void updateAccels() = 0;
 };
 
