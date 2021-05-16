@@ -1,6 +1,7 @@
 method Simple Euler
 timestep 0.0001
 create body 1 0 0 0 0 0 0
-create body 0.0 1 0 0 0 6.2832 0
-nframes 100
-run 1
+create body 0.0 1 0 0 0 4 0
+nframes 1000
+save outputfile mass velocity
+run 10

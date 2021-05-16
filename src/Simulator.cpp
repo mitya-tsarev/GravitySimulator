@@ -46,6 +46,11 @@ Simulator::Simulator(std::ifstream &inputfile) {
             runtime = std::stod(words[1]);
         if (words[0] == "nframes")
             nframes = std::stod(words[1]);
+        if (words[0] == "save") {
+            perBodyOutputFilename = words[1];
+            for (int i = 2; i < words.size(); i++)
+                save_params.push_back(words[i]);
+        }
     }
 }
 
@@ -82,6 +87,23 @@ void Simulator::write_vtk(std::string filename) {
     }
     output << "</DataArray>\n";
     output << "</Cells>\n";
+
+    if (!save_params.empty()) {
+        for (auto quantity : save_params) {
+            output << "<PointData  Scalars=\"" + quantity + "\">\n";
+            output << "<DataArray  type=\"Float64\"  Name=\"" + quantity + "\"  format=\"ascii\">";
+            std::vector<double> vals;
+            if (quantity == "mass")
+                vals = u->getMassList();
+            if (quantity == "velocity")
+                vals = getPerBodyVels();
+            for (auto v : vals)
+                output << v << " ";
+            output << "</DataArray >\n";
+            output << "</PointData >\n";
+        }
+    }
+
     output << "</Piece>\n";
     output << "</UnstructuredGrid>\n";
     output << "</VTKFile>\n";
@@ -94,7 +116,15 @@ void Simulator::simulate() {
         auto list = u->getPosList();
         auto vels = u->getVelList();
         std::cout << list[1].x << ", " << list[1].y << ", " << list[1].Length3() << '\n';
-        write_vtk("../system" + std::to_string(i));
+        write_vtk("../" + perBodyOutputFilename + std::to_string(i));
         u->update(runtime / nframes);
     }
+}
+
+std::vector<double> Simulator::getPerBodyVels() {
+    std::vector<double> ans;
+    auto vectVels = u->getVelList();
+    for (auto v : vectVels)
+        ans.push_back(v.Length3());
+    return ans;
 }
