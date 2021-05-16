@@ -1,17 +1,24 @@
 #include "../include/SimpleUniverse.h"
 
-SimpleUniverse::SimpleUniverse(double dt, int method) : LinearTimeUniverse(dt) {}
+SimpleUniverse::SimpleUniverse(double dt, int method) : LinearTimeUniverse(dt, method) {}
+
+const double G = 39.478417604357434475;
 
 void SimpleUniverse::updateAccels() {
     for(auto b : body){
-        mathing::Vec4 r = b->getPos();
-        mathing::Vec4 accel;
-        for(auto b_ : body){
-            double dist = (r - b_->getPos()).Length3();
-            mathing::Vec4 a_;
-            if (dist > 1e-8) a_ = - 39.478417604357434475 * b_->getMass()*(r - b_->getPos())/(dist*dist*dist);
-            accel += a_;
+        b->setAccel(mathing::Vec4());
+    }
+
+    for(auto b_ : body){
+        if(b_->getMass() > 1e-12){
+            for(auto b : body){
+                mathing::Vec4 dr = b->getPos() - b_->getPos();
+                if(dr.Length3() > 1e-4){
+                    b->setAccel(b->getAccel() - G * b_->getMass() * dr/(dr.Length3()*dr.Length3Sqr()));
+                }else{
+                    b->setAccel(b->getAccel() - G * b_->getMass() * dr * 1e12);
+                }
+            }
         }
-        b->setAccel(accel);
     }
 }

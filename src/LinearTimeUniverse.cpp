@@ -1,17 +1,14 @@
 #include "../include/LinearTimeUniverse.h"
 
-LinearTimeUniverse::LinearTimeUniverse(double dt) : dt(dt) {}
+LinearTimeUniverse::LinearTimeUniverse(double dt, double method) : dt(dt), method(method) {}
 
 void LinearTimeUniverse::addBody(mathing::Vec4 pos, mathing::Vec4 vel, double mass) {
     body.push_back(new Body(pos, vel, mass));
 }
 
 void LinearTimeUniverse::Step() {
-    if(method == 0){
-        EulerStep();
-    }else if(method == 1){
-        RungeKuttaStep();
-    }
+    if (method == 0)EulerStep();
+    else if (method == 1)RungeKuttaStep();
 }
 
 void LinearTimeUniverse::EulerStep() {
@@ -22,6 +19,7 @@ void LinearTimeUniverse::EulerStep() {
     }
 }
 
+/* Now it useless.
 void LinearTimeUniverse::AdvancedEulerStep() {
     updateAccels();
     std::vector<Body *> old_body = std::move(body);
@@ -39,7 +37,7 @@ void LinearTimeUniverse::AdvancedEulerStep() {
         body[i]->setVel(b_old->getVel() + dt/2*(b_old->getAccel() + b->getAccel()));
         body[i]->setPos(b_old->getPos() + dt/2*(b_old->getVel() + b->getVel()));
     }
-}
+} */
 
 void LinearTimeUniverse::RungeKuttaStep() {
     updateAccels();

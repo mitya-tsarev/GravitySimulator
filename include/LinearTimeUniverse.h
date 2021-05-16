@@ -10,7 +10,7 @@ protected:
     double dt;
     double global_time = 0;
 public:
-    explicit LinearTimeUniverse(double dt);
+    explicit LinearTimeUniverse(double dt, double method);
 
     int method = 0; //0 - Euler, 1 - Runge-Kutta
 
