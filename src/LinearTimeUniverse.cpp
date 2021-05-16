@@ -1,6 +1,6 @@
 #include "../include/LinearTimeUniverse.h"
 
-LinearTimeUniverse::LinearTimeUniverse(double dt, double method) : dt(dt), method(method) {}
+LinearTimeUniverse::LinearTimeUniverse(double dt, int method) : dt(dt), method(method) {}
 
 void LinearTimeUniverse::addBody(mathing::Vec4 pos, mathing::Vec4 vel, double mass) {
     body.push_back(new Body(pos, vel, mass));
