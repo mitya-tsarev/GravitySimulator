@@ -13,10 +13,8 @@
 <DataArray  type="UInt32"  Name="types"  format="ascii">
 1 1 </DataArray>
 </Cells>
-<PointData  Scalars="mass">
+<PointData  Scalars=" smth ">
 <DataArray  type="Float64"  Name="mass"  format="ascii">1 0 </DataArray >
-</PointData >
-<PointData  Scalars="velocity">
 <DataArray  type="Float64"  Name="velocity"  format="ascii">0 9.00024 </DataArray >
 </PointData >
 </Piece>

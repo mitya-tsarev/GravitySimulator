@@ -89,8 +89,8 @@ void Simulator::write_vtk(std::string filename) {
     output << "</Cells>\n";
 
     if (!save_params.empty()) {
+        output << "<PointData  Scalars=\" smth \">\n";
         for (auto quantity : save_params) {
-            output << "<PointData  Scalars=\"" + quantity + "\">\n";
             output << "<DataArray  type=\"Float64\"  Name=\"" + quantity + "\"  format=\"ascii\">";
             std::vector<double> vals;
             if (quantity == "mass")
@@ -100,8 +100,8 @@ void Simulator::write_vtk(std::string filename) {
             for (auto v : vals)
                 output << v << " ";
             output << "</DataArray >\n";
-            output << "</PointData >\n";
         }
+        output << "</PointData >\n";
     }
 
     output << "</Piece>\n";
