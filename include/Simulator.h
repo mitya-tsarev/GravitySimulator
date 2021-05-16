@@ -13,14 +13,18 @@ private:
     AbstractUniverse *u;
     double runtime;
     int nframes;
-    std::vector<std::string> save_params;
+    std::vector<std::string> savePerBody;
+    std::vector<std::string> saveGlobal;
     std::string perBodyOutputFilename;
+    std::string globalOutputFilename;
 public:
     Simulator() = delete;
     explicit Simulator(std::ifstream & inputfile);
     void simulate();
-    void write_vtk(std::string filename);
+    void write_vtk(const std::string& filename);
     std::vector<double> getPerBodyVels();
+    double getPotEng();
+    double getKinEng();
 };
 
 

@@ -13,12 +13,13 @@ std::vector<std::string> splitString(std::string s, const std::string& delimiter
     std::string token;
     while ((pos = s.find_first_of(delimiter_list)) != std::string::npos) {
         token = s.substr(0, pos);
-        words.push_back(token);
+        if (!token.empty()) words.push_back(token);
         s.erase(0, pos + 1);
     }
-    words.push_back(s);
+    if (!s.empty()) words.push_back(s);
     return words;
 }
+
 
 Simulator::Simulator(std::ifstream &inputfile) {
     std::string line;
@@ -55,16 +56,23 @@ Simulator::Simulator(std::ifstream &inputfile) {
         if (words[0] == "run")
             runtime = std::stod(words[1]);
         if (words[0] == "nframes")
-            nframes = std::stod(words[1]);
+            nframes = std::stoi(words[1]);
         if (words[0] == "save") {
-            perBodyOutputFilename = words[1];
-            for (int i = 2; i < words.size(); i++)
-                save_params.push_back(words[i]);
+            if (words[1] == "perbody") {
+                perBodyOutputFilename = words[2];
+                for (int i = 3; i < words.size(); i++)
+                    savePerBody.push_back(words[i]);
+            }
+            if (words[1] == "global") {
+                globalOutputFilename = words[2];
+                for (int i = 3; i < words.size(); i++)
+                    saveGlobal.push_back(words[i]);
+            }
         }
     }
 }
 
-void Simulator::write_vtk(std::string filename) {
+void Simulator::write_vtk(const std::string &filename) {
     auto positions = u->getPosList();
     std::ofstream output;
     output.open(filename + ".vtu");
@@ -75,7 +83,7 @@ void Simulator::write_vtk(std::string filename) {
               "\" NumberOfCells=\"" + std::to_string(positions.size()) + "\">\n";
     output << "<Points>\n";
     output << "<DataArray  type=\"Float64\"  NumberOfComponents=\"3\"  format=\"ascii\">";
-    for (auto p : positions) {
+    for (const auto &p : positions) {
         output << p.x << " " << p.y << " " << p.z << "  ";
     }
     output << "</DataArray>\n";
@@ -98,9 +106,9 @@ void Simulator::write_vtk(std::string filename) {
     output << "</DataArray>\n";
     output << "</Cells>\n";
 
-    if (!save_params.empty()) {
+    if (!savePerBody.empty()) {
         output << "<PointData  Scalars=\" smth \">\n";
-        for (auto quantity : save_params) {
+        for (const auto &quantity : savePerBody) {
             output << "<DataArray  type=\"Float64\"  Name=\"" + quantity + "\"  format=\"ascii\">";
             std::vector<double> vals;
             if (quantity == "mass")
@@ -122,19 +130,74 @@ void Simulator::write_vtk(std::string filename) {
 }
 
 void Simulator::simulate() {
+    std::ofstream output;
+    output.open("../" + globalOutputFilename);
+    for (auto s : saveGlobal) {
+        std::cout << s << " ";
+        output << s << " ";
+    }
+    std::cout << '\n';
+    output << '\n';
     for (int i = 0; i <= nframes; i++) {
-        auto list = u->getPosList();
-        auto vels = u->getVelList();
-        std::cout << list[1].x << ", " << list[1].y << ", " << list[1].Length3() << '\n';
-        write_vtk("../" + perBodyOutputFilename + std::to_string(i));
+        for (const auto& quantity : saveGlobal) {
+            if (quantity == "time") {
+                std::cout << runtime * i / nframes << "     ";
+                output << runtime * i / nframes << "     ";
+            }
+            if (quantity == "potentialenergy") {
+                double pe = getPotEng();
+                std::cout << pe << "   ";
+                output << pe << "   ";
+            }
+            if (quantity == "kineticenergy") {
+                double ke = getKinEng();
+                std::cout << ke << "   ";
+                output << ke << "   ";
+            }
+            if (quantity == "totalenergy") {
+                double eng = getKinEng() + getPotEng();
+                std::cout << eng << "   ";
+                output << eng << "  ";
+            }
+        }
+        std::cout << '\n';
+        output << '\n';
+        //write_vtk("../" + perBodyOutputFilename + std::to_string(i));
         u->update(runtime / nframes);
     }
+    output.close();
 }
 
 std::vector<double> Simulator::getPerBodyVels() {
     std::vector<double> ans;
     auto vectVels = u->getVelList();
+    ans.reserve(vectVels.size());
     for (auto v : vectVels)
         ans.push_back(v.Length3());
     return ans;
+}
+
+double Simulator::getPotEng() {
+    double pe = 0;
+    auto pos = u->getPosList();
+    auto mas = u->getMassList();
+    int n = mas.size();
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            pe -= u->G * mas[i] * mas[j] / (pos[i] - pos[j]).Length3();
+        }
+    }
+    return pe;
+}
+
+double Simulator::getKinEng() {
+    double ke = 0;
+    auto vels = u->getVelList();
+    auto mas = u->getMassList();
+    int n = mas.size();
+    for (int i = 0; i < n; i++) {
+        double v = vels[i].Length3();
+        ke += mas[i] * v * v / 2;
+    }
+    return ke;
 }
