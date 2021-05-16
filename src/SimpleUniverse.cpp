@@ -2,8 +2,6 @@
 
 SimpleUniverse::SimpleUniverse(double dt, int method) : LinearTimeUniverse(dt, method) {}
 
-const double G = 39.478417604357434475;
-
 void SimpleUniverse::updateAccels() {
     for(auto b : body){
         b->setAccel(mathing::Vec4());
