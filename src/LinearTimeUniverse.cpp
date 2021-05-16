@@ -7,11 +7,11 @@ void LinearTimeUniverse::addBody(mathing::Vec4 pos, mathing::Vec4 vel, double ma
 }
 
 void LinearTimeUniverse::Step() {
-    for(auto b : body){
-        b->setPos(b->getPos()+dt*b->getVel() + dt*dt*b->getAccel()/2);
-        b->setVel(b->getVel()+dt*b->getAccel());
+    if(method == 0){
+        RungeKuttaStep();
+    }else if(method == 1){
+        RungeKuttaStep();
     }
-    updateAccels();
 }
 
 void LinearTimeUniverse::EulerStep() {
@@ -41,17 +41,48 @@ void LinearTimeUniverse::AdvancedEulerStep() {
     }
 }
 
-void LinearTimeUniverse::RungeKuttaStep() { // Need
+void LinearTimeUniverse::RungeKuttaStep() {
     updateAccels();
-    for(auto b : body){
-        b->setPos(b->getPos()+dt*b->getVel() + dt*dt*b->getAccel()/2);
-        b->setVel(b->getVel()+dt*b->getAccel());
+    std::vector<Body *> k1 = std::move(body);
+    for(auto b : k1){
+        body.push_back(new Body(b->getPos()+dt/2*b->getVel(),
+                                b->getVel()+dt/2*b->getAccel(),
+                                b->getMass()));
+    }
+    updateAccels();
+    std::vector<Body *> k2 = std::move(body);
+    for(int i = 0;i < k1.size();i++){
+        auto b = k1[i];
+        auto b2 = k2[i];
+        body.push_back(new Body(b->getPos()+dt/2*b2->getVel(),
+                                b->getVel()+dt/2*b2->getAccel(),
+                                b->getMass()));
+    }
+    updateAccels();
+    std::vector<Body *> k3 = std::move(body);
+    for(int i = 0;i < k1.size();i++){
+        auto b = k1[i];
+        auto b3 = k3[i];
+        body.push_back(new Body(b->getPos()+dt*b3->getVel(),
+                                b->getVel()+dt*b3->getAccel(),
+                                b->getMass()));
+    }
+    updateAccels();
+    std::vector<Body *> k4 = std::move(body);
+    for(int i = 0;i < k1.size();i++){
+        auto b1 = k1[i];
+        auto b2 = k2[i];
+        auto b3 = k3[i];
+        auto b4 = k4[i];
+        body.push_back(new Body(b1->getPos()+dt/6*(b1->getVel()+2*b2->getVel()+2*b3->getVel()+b4->getVel()),
+                                b1->getVel()+dt/6*(b1->getAccel()+2*b2->getAccel()+2*b3->getAccel()+b4->getAccel()),
+                                b1->getMass()));
     }
 }
 
 void LinearTimeUniverse::update(double time) {
-    uint32_t steps = (uint32_t) (time / dt);
-    for (uint32_t i = 0; i < steps; i++) AdvancedEulerStep();
+    auto steps = (uint32_t) (time / dt);
+    for (uint32_t i = 0; i < steps; i++) Step();
     global_time += time;
 }
 
