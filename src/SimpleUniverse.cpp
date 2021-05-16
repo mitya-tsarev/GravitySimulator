@@ -9,7 +9,7 @@ void SimpleUniverse::updateAccels() {
         for(auto b_ : body){
             double dist = (r - b_->getPos()).Length3();
             mathing::Vec4 a_;
-            if (dist > 1e-8) a_ = - 39.478417604357434475 * b_->getMass()*(r - b_->getPos())/(dist*dist*dist);
+            if (dist > 1e-8) a_ = - G * b_->getMass()*(r - b_->getPos())/(dist*dist*dist);
             accel += a_;
         }
         b->setAccel(accel);
