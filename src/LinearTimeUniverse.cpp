@@ -7,11 +7,11 @@ void LinearTimeUniverse::addBody(mathing::Vec4 pos, mathing::Vec4 vel, double ma
 }
 
 void LinearTimeUniverse::Step() {
-    updateAccels();
     for(auto b : body){
         b->setPos(b->getPos()+dt*b->getVel() + dt*dt*b->getAccel()/2);
         b->setVel(b->getVel()+dt*b->getAccel());
     }
+    updateAccels();
 }
 
 void LinearTimeUniverse::EulerStep() {

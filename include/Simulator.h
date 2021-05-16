@@ -17,6 +17,7 @@ public:
 
     explicit Simulator(std::ifstream & inputfile);
     void simulate();
+    void write_vtk(std::string filename);
 };
 
 
