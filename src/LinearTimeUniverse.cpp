@@ -14,7 +14,7 @@ void LinearTimeUniverse::Step() {
     }
 }
 
-void LinearTimeUniverse::SimpleStep() {
+void LinearTimeUniverse::EulerStep() {
     updateAccels();
     for(auto b : body){
         b->setPos(b->getPos()+dt*b->getVel() + dt*dt*b->getAccel()/2);
@@ -22,11 +22,22 @@ void LinearTimeUniverse::SimpleStep() {
     }
 }
 
-void LinearTimeUniverse::EulerStep() {
+void LinearTimeUniverse::AdvancedEulerStep() {
     updateAccels();
-    for(auto b : body){
-        b->setPos(b->getPos()+dt*b->getVel() + dt*dt*b->getAccel()/2);
-        b->setVel(b->getVel()+dt*b->getAccel());
+    std::vector<Body *> old_body = std::move(body);
+    body.clear();
+    for(auto b : old_body){
+        body.push_back(new Body(b->getPos()+dt*b->getVel(),
+                                b->getVel()+dt*b->getAccel(),
+                                b->getMass()));
+    }
+    updateAccels();
+
+    for(int i = 0;i < body.size();i++){
+        auto b = body[i];
+        auto b_old = old_body[i];
+        body[i]->setVel(b_old->getVel() + dt/2*(b_old->getAccel() + b->getAccel()));
+        body[i]->setPos(b_old->getPos() + dt/2*(b_old->getVel() + b->getVel()));
     }
 }
 
@@ -40,7 +51,7 @@ void LinearTimeUniverse::RungeKuttaStep() { // Need
 
 void LinearTimeUniverse::update(double time) {
     uint32_t steps = (uint32_t) (time / dt);
-    for (uint32_t i = 0; i < steps; i++) Step();
+    for (uint32_t i = 0; i < steps; i++) AdvancedEulerStep();
     global_time += time;
 }
 
@@ -55,3 +66,4 @@ std::vector<mathing::Vec4> LinearTimeUniverse::getPosList() {
     for(auto b : body) PosList.push_back(b->getPos());
     return PosList;
 }
+
