@@ -13,12 +13,13 @@ std::vector<std::string> splitString(std::string s, const std::string& delimiter
     std::string token;
     while ((pos = s.find_first_of(delimiter_list)) != std::string::npos) {
         token = s.substr(0, pos);
-        words.push_back(token);
+        if (!token.empty()) words.push_back(token);
         s.erase(0, pos + 1);
     }
-    words.push_back(s);
+    if (!s.empty()) words.push_back(s);
     return words;
 }
+
 
 Simulator::Simulator(std::ifstream &inputfile) {
     std::string line;
