@@ -8,7 +8,7 @@ void LinearTimeUniverse::addBody(mathing::Vec4 pos, mathing::Vec4 vel, double ma
 
 void LinearTimeUniverse::Step() {
     if(method == 0){
-        RungeKuttaStep();
+        EulerStep();
     }else if(method == 1){
         RungeKuttaStep();
     }
