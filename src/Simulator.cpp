@@ -30,7 +30,7 @@ Simulator::Simulator(std::ifstream &inputfile) {
     double dt = std::stod(words[1]);
     words = splitString(method, "\t ");
 
-    if (words[1] == "BarnesHutt") {
+    if (words[1] == "BarnesHut") {
         int m = 1;
         double tau = stod(words[3]);
         if (words[2] == "Euler")
