@@ -6,7 +6,7 @@
 
 
 // split string by any of the characters in the given string
-std::vector<std::string> splitString(std::string s, const std::string& delimiter_list) {
+std::vector<std::string> splitString(std::string s, const std::string &delimiter_list) {
     std::vector<std::string> words;
     size_t pos = 0;
     std::string token;
@@ -51,6 +51,8 @@ Simulator::Simulator(std::ifstream &inputfile) {
                            mathing::Vec4(std::stod(words[6]), std::stod(words[7]), std::stod(words[8]), 0),
                            std::stod(words[2]));
             }
+            if (words[1] == "cluster")
+                addCluster(words);
         }
         if (words[0] == "run")
             runtime = std::stod(words[1]);
@@ -138,7 +140,7 @@ void Simulator::simulate() {
     std::cout << '\n';
     output << '\n';
     for (int i = 0; i <= nframes; i++) {
-        for (const auto& quantity : saveGlobal) {
+        for (const auto &quantity : saveGlobal) {
             if (quantity == "time") {
                 std::cout << runtime * i / nframes << "     ";
                 output << runtime * i / nframes << "     ";
@@ -254,4 +256,161 @@ mathing::Vec4 Simulator::getBarycenter() {
     }
     bary = bary / totalm;
     return bary;
+}
+
+void Simulator::addCluster(std::vector<std::string> words) {
+    int N = 1;
+    std::string distx = "constant";
+    std::string disty = "constant";
+    std::string distz = "constant";
+    std::vector<double> paramsx;
+    std::vector<double> paramsy;
+    std::vector<double> paramsz;
+    std::string distvx = "constant";
+    std::string distvy = "constant";
+    std::string distvz = "constant";
+    std::vector<double> paramsvx;
+    std::vector<double> paramsvy;
+    std::vector<double> paramsvz;
+    std::string distmass = "constant";
+    std::vector<double> paramsm;
+    for (int i = 2; i < words.size(); i++) {
+        if (words[i] == "n") {
+            N = stoi(words[i + 1]);
+            i++;
+            continue;
+        }
+        if (words[i] == "mass") {
+            distmass = words[i + 1];
+            if (distmass == "constant") {
+                paramsm.push_back(stod(words[i + 2]));
+                i += 2;
+                continue;
+            }
+            if (distmass == "uniform") {
+                paramsm.push_back(stod(words[i + 2]));
+                paramsm.push_back(stod(words[i + 3]));
+                i += 3;
+                continue;
+            }
+        }
+        if (words[i] == "x") {
+            distx = words[i + 1];
+            if (distx == "constant") {
+                paramsx.push_back(stod(words[i + 2]));
+                i += 2;
+                continue;
+            }
+            if (distx == "uniform") {
+                paramsx.push_back(stod(words[i + 2]));
+                paramsx.push_back(stod(words[i + 3]));
+                i += 3;
+                continue;
+            }
+        }
+        if (words[i] == "y") {
+            disty = words[i + 1];
+            if (disty == "constant") {
+                paramsy.push_back(stod(words[i + 2]));
+                i += 2;
+                continue;
+            }
+            if (disty == "uniform") {
+                paramsy.push_back(stod(words[i + 2]));
+                paramsy.push_back(stod(words[i + 3]));
+                i += 3;
+                continue;
+            }
+        }
+        if (words[i] == "z") {
+            distz = words[i + 1];
+            if (distz == "constant") {
+                paramsz.push_back(stod(words[i + 2]));
+                i += 2;
+                continue;
+            }
+            if (distz == "uniform") {
+                paramsz.push_back(stod(words[i + 2]));
+                paramsz.push_back(stod(words[i + 3]));
+                i += 3;
+                continue;
+            }
+        }
+        if (words[i] == "vx") {
+            distvx = words[i + 1];
+            if (distvx == "constant") {
+                paramsvx.push_back(stod(words[i + 2]));
+                i += 2;
+                continue;
+            }
+            if (distvx == "uniform") {
+                paramsvx.push_back(stod(words[i + 2]));
+                paramsvx.push_back(stod(words[i + 3]));
+                i += 3;
+                continue;
+            }
+        }
+        if (words[i] == "vy") {
+            distvy = words[i + 1];
+            if (distvy == "constant") {
+                paramsvy.push_back(stod(words[i + 2]));
+                i += 2;
+                continue;
+            }
+            if (distvy == "uniform") {
+                paramsvy.push_back(stod(words[i + 2]));
+                paramsvy.push_back(stod(words[i + 3]));
+                i += 3;
+                continue;
+            }
+        }
+        if (words[i] == "vz") {
+            distvz = words[i + 1];
+            if (distvz == "constant") {
+                paramsvz.push_back(stod(words[i + 2]));
+                i += 2;
+                continue;
+            }
+            if (distvz == "uniform") {
+                paramsvz.push_back(stod(words[i + 2]));
+                paramsvz.push_back(stod(words[i + 3]));
+                i += 3;
+                continue;
+            }
+        }
+    }
+
+    for (int i = 0; i < N; i++) {
+        double m_, x_, y_, z_, vx_, vy_, vz_;
+        if (distmass == "uniform")
+            m_ = utilities::uniform(paramsm[0], paramsm[1]);
+        if (distmass == "constant")
+            m_ = paramsm[0];
+        if (distx == "uniform")
+            x_ = utilities::uniform(paramsx[0], paramsx[1]);
+        if (distx == "constant")
+            x_ = paramsx[0];
+        if (disty == "uniform")
+            y_ = utilities::uniform(paramsy[0], paramsy[1]);
+        if (disty == "constant")
+            y_ = paramsy[0];
+        if (distz == "uniform")
+            z_ = utilities::uniform(paramsz[0], paramsz[1]);
+        if (distz == "constant")
+            z_ = paramsz[0];
+        if (distvx == "uniform")
+            vx_ = utilities::uniform(paramsvx[0], paramsvx[1]);
+        if (distvx == "constant")
+            vx_ = paramsvx[0];
+        if (distvy == "uniform")
+            vy_ = utilities::uniform(paramsvy[0], paramsvy[1]);
+        if (distvy == "constant")
+            vy_ = paramsvy[0];
+        if (distvz == "uniform")
+            vz_ = utilities::uniform(paramsvz[0], paramsvz[1]);
+        if (distvz == "constant")
+            vz_ = paramsvz[0];
+
+        u->addBody(mathing::Vec4(x_, y_, z_, 0), mathing::Vec4(vx_, vy_, vz_, 0), m_);
+    }
 }
