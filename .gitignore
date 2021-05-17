@@ -3,3 +3,4 @@
 CMakeLists.txt
 *.vtu
 *.avi
+*.png
