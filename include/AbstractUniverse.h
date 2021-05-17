@@ -3,11 +3,12 @@
 
 #include <vector>
 #include "Body.h"
+#include <cmath>
 
 class AbstractUniverse {
 
 public:
-    const double G = 39.478417604357434475;
+    const double G = 4 * M_PI * M_PI;
     virtual std::vector<mathing::Vec4> getPosList() = 0;
     virtual std::vector<mathing::Vec4> getVelList() = 0;
     virtual std::vector<double> getMassList() = 0;

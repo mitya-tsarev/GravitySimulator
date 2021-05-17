@@ -2,8 +2,9 @@
 #define GRAVITYSIMULATOR_SIMULATOR_H
 
 #include <map>
-#include "BarnesHutUniverse.h"
+#include "../include/BarnesHutUniverse.h"
 #include "../include/SimpleUniverse.h"
+#include "../include/utilities.h"
 
 
 
@@ -27,6 +28,7 @@ public:
     double getKinEng();
     mathing::Vec4 getMomentum();
     mathing::Vec4 getBarycenter();
+    void addCluster(std::vector<std::string> words);
 };
 
 

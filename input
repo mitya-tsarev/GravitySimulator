@@ -1,8 +1,9 @@
-method Simple Euler
+method Simple RungeKutta
 timestep 0.0001
-create body 1 -2 0 0 0 -4 0
-create body 2  1 0 0 0  2 0
-nframes 100
+create body 1   -1 0 0 0 -0.2 0
+create body 0.1 10 0 0 0  2   0
+create cluster n 100 mass constant 0 x uniform 3 4 y constant 0 z constant 0 vx constant 0 vy uniform 3.1 3.6 vz constant 0
+nframes 1000
 save perbody perbodyOutput mass velocity
 save global globalOutput time potentialenergy kineticenergy totalenergy momentumy barycenterz
-run 3
+run 100
