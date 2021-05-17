@@ -19,7 +19,7 @@ void LinearTimeUniverse::EulerStep() {
     }
 }
 
-/* Now it useless.
+/* Now it is useless.
 void LinearTimeUniverse::AdvancedEulerStep() {
     updateAccels();
     std::vector<Body *> old_body = std::move(body);
@@ -102,3 +102,28 @@ std::vector<double> LinearTimeUniverse::getMassList() {
     return MassList;
 }
 
+void LinearTimeUniverse::setBarycenter(mathing::Vec4 barycenter) {
+    double sumMass = 0;
+    mathing::Vec4 sumPos = mathing::Vec4();
+    for (auto b : body) {
+        sumPos += b->getPos() * b->getMass();
+        sumMass += b->getMass();
+    }
+    mathing::Vec4 shift = barycenter - (sumPos / sumMass);
+    for (auto b : body) {
+        b -> setPos(b->getPos() + shift);
+    }
+}
+
+void LinearTimeUniverse::setMomentum(mathing::Vec4 momentum) {
+    double sumMass = 0;
+    mathing::Vec4 sumVel = mathing::Vec4();
+    for (auto b : body) {
+        sumVel += b->getPos() * b->getMass();
+        sumMass += b->getMass();
+    }
+    mathing::Vec4 velShift = momentum - (sumVel / sumMass);
+    for (auto b : body) {
+        b -> setVel(b->getVel() + velShift);
+    }
+}

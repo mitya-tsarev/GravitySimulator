@@ -24,6 +24,8 @@ public:
     std::vector<mathing::Vec4> getPosList() override;
     std::vector<mathing::Vec4> getVelList() override;
     std::vector<double> getMassList() override;
+    void setBarycenter(mathing::Vec4 barycenter) override;
+    void setMomentum(mathing::Vec4 momentum) override;
     virtual void updateAccels() = 0;
 };
 

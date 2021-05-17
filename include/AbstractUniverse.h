@@ -12,6 +12,8 @@ public:
     virtual std::vector<mathing::Vec4> getPosList() = 0;
     virtual std::vector<mathing::Vec4> getVelList() = 0;
     virtual std::vector<double> getMassList() = 0;
+    virtual void setMomentum(mathing::Vec4 momentum) = 0;
+    virtual void setBarycenter(mathing::Vec4 barycentre) = 0;
     virtual void addBody(mathing::Vec4 pos, mathing::Vec4 vel, double mass) = 0;
     virtual void update(double time) = 0;
 };
