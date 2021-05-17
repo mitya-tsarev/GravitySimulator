@@ -25,7 +25,9 @@ Global output is characteristics of the entire system, such as kinetic energy or
 ```save global myGlobalFilename time potentialenergy kineticenergy totalenergy momentumy barycenterz```<br />
 The frequency of the output is defined by ```nframes``` command. It has to be followed by an integer specifying the number of output frames during the simulation. Example:<br />
 ```nframes 1000```
-### 
+### Running
+The length of the simulation is defined by ```run``` command followed by the desired time of simulation. Example:<br />
+```run 10```
 
 
 
