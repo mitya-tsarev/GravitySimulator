@@ -4,6 +4,7 @@
 #include "include/Simulator.h"
 
 int main() {
+    std::cout.precision(8);
     std::ifstream inputfile;
     inputfile.open("../input");
     try {
