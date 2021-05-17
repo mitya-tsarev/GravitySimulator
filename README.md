@@ -1,8 +1,8 @@
 ## Gravity Simulator Engine
 This project is a  multi-purpose package for solving n-body problems numerically. It takes in a user-written script with a description of parameters of the simulation, such as the initial state conditions, the choice of integration scheme, the timestep of integration, and the frequency and the format of the output.
-## Installation, building, and running.
+## Installation, building, and running
 
-## Documentation.
+## Documentation
 ### Units
 We use the "Astronomical Unit, Solar Mass, Year" units. The constant G equals to 4π<sup>2</sup> in this units system. All the quantitative input has to be expressed in this unit system, and all the output is represented in this unit system.
 ### The first line of the input script must specify an integration scheme.
@@ -22,4 +22,21 @@ There are two possible ways of creating bodies in the simulation. The first one 
 The package gives two kinds of output: per body output and global output. Per body output is saved in .vtu files and contains the positions of bodies and scalar properties for each body. The command is ```save perbody``` followed by a filename and (possibly) several keywords specifying the scalar per-body output. ```mass``` and ```velocity``` keywords are currently available. Example:<br />
 ```save perbody myPerbodyFilename mass velocity```<br />
 Global output is characteristics of the entire system, such as kinetic energy or total momentum. Global output is saved in a single file and printed out in the console. The command is ```save global``` followed by a filename and (possibly) several keywords specifying the output. ```time```, ```potentialenergy```, ```kineticenergy```, ```totalenergy```, ```momentumx```, ```momentumy```, ```momentumy```, ```barycenterx```, ```barycentery```, ```barycenterz``` keywords are currently available. Example:<br />
-```save global myGlobalFilename time potentialenergy kineticenergy totalenergy momentumy barycenterz```
+```save global myGlobalFilename time potentialenergy kineticenergy totalenergy momentumy barycenterz```<br />
+The frequency of the output is defined by ```nframes``` command. It has to be followed by an integer specifying the number of output frames during the simulation. Example:<br />
+```nframes 1000```
+### 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
