@@ -2,6 +2,12 @@
 
 LinearTimeUniverse::LinearTimeUniverse(double dt, int method) : dt(dt), method(method) {}
 
+LinearTimeUniverse::~LinearTimeUniverse(){
+    for(auto b : body) {
+        delete b;
+    }
+}
+
 void LinearTimeUniverse::addBody(mathing::Vec4 pos, mathing::Vec4 vel, double mass) {
     body.push_back(new Body(pos, vel, mass));
 }
@@ -23,7 +29,6 @@ void LinearTimeUniverse::EulerStep() {
 void LinearTimeUniverse::AdvancedEulerStep() {
     updateAccels();
     std::vector<Body *> old_body = std::move(body);
-    body.clear();
     for(auto b : old_body){
         body.push_back(new Body(b->getPos()+dt*b->getVel(),
                                 b->getVel()+dt*b->getAccel(),
@@ -76,6 +81,11 @@ void LinearTimeUniverse::RungeKuttaStep() {
                                 b1->getVel()+dt/6*(b1->getAccel()+2*b2->getAccel()+2*b3->getAccel()+b4->getAccel()),
                                 b1->getMass()));
     }
+
+    for (auto b : k1)delete b;
+    for (auto b : k2)delete b;
+    for (auto b : k3)delete b;
+    for (auto b : k4)delete b;
 }
 
 void LinearTimeUniverse::update(double time) {

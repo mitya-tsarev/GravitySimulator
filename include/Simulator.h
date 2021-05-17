@@ -21,6 +21,9 @@ private:
 public:
     Simulator() = delete;
     explicit Simulator(std::ifstream & inputfile);
+
+    virtual ~Simulator();
+
     void simulate();
     void write_vtk(const std::string& filename);
     std::vector<double> getPerBodyVels();

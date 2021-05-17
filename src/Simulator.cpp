@@ -80,6 +80,12 @@ Simulator::Simulator(std::ifstream &inputfile) {
     }
 }
 
+
+Simulator::~Simulator() {
+    delete u;
+}
+
+
 void Simulator::write_vtk(const std::string &filename) {
     auto positions = u->getPosList();
     std::ofstream output;

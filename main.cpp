@@ -9,6 +9,7 @@ int main() {
     try {
         auto *simulator = new Simulator(inputfile);
         simulator->simulate();
+        delete simulator;
     }
     catch (const std::exception &e) {
         e.what();
