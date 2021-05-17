@@ -13,6 +13,8 @@ public:
     void updateAccels() override;
     void constructTree(double smoothParam=0);
     void destroyTree();
+    double getMinCoord();
+    double getMaxCoord();
 };
 
 
