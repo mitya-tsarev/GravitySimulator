@@ -134,6 +134,7 @@ void Simulator::write_vtk(const std::string &filename) {
 void Simulator::simulate() {
     std::ofstream output;
     output.open("../" + globalOutputFilename);
+
     for (auto s : saveGlobal) {
         std::cout << s << " ";
         output << s << " ";
