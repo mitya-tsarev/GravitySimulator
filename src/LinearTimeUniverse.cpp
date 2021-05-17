@@ -119,7 +119,7 @@ void LinearTimeUniverse::setMomentum(mathing::Vec4 momentum) {
     double sumMass = 0;
     mathing::Vec4 sumVel = mathing::Vec4();
     for (auto b : body) {
-        sumVel += b->getPos() * b->getMass();
+        sumVel += b->getVel() * b->getMass();
         sumMass += b->getMass();
     }
     mathing::Vec4 velShift = momentum - (sumVel / sumMass);
