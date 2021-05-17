@@ -71,6 +71,12 @@ Simulator::Simulator(std::ifstream &inputfile) {
                     saveGlobal.push_back(words[i]);
             }
         }
+        if (words[0] == "set") {
+            if (words[1] == "barycenter")
+                u->setBarycenter(mathing::Vec4(stod(words[2]), stod(words[3]), stod(words[4]), 0));
+            if (words[1] == "momentum")
+                u->setMomentum(mathing::Vec4(stod(words[2]), stod(words[3]), stod(words[4]), 0));
+        }
     }
 }
 
