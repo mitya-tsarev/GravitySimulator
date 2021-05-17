@@ -1,4 +1,5 @@
 ## Gravity Simulator Engine
+[![Build Status](https://travis-ci.com/mitya-tsarev/GravitySimulator.svg?branch=master)](https://travis-ci.com/mitya-tsarev/GravitySimulator)
 This project is a  multi-purpose package for solving n-body problems numerically. It takes in a user-written script with a description of parameters of the simulation, such as the initial state conditions, the choice of integration scheme, the timestep of integration, and the frequency and the format of the output.
 ## Installation, building, and running
 
