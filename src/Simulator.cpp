@@ -32,9 +32,10 @@ Simulator::Simulator(std::ifstream &inputfile) {
 
     if (words[1] == "BarnesHutt") {
         int m = 1;
+        double tau = stod(words[3]);
         if (words[2] == "Euler")
             m = 0;
-        u = new BarnesHutUniverse(dt, m);
+        u = new BarnesHutUniverse(dt, tau, m);
     }
     if (words[1] == "Simple") {
         int m = 1;
