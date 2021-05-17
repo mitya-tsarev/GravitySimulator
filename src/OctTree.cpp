@@ -127,6 +127,17 @@ mathing::Vec4 OctTree::Node::calcLeaf(const mathing::Vec4 &position, const mathi
     return calcNode(mathing::Vec4(ab), l);
 }
 
+OctTree::Node::~Node() {
+    delete TNE;
+    delete TNW;
+    delete TSE;
+    delete TSW;
+    delete BNE;
+    delete BNW;
+    delete BSE;
+    delete BSW;
+}
+
 OctTree::Node *OctTree::getRoot() {
     return root;
 }
@@ -162,4 +173,8 @@ mathing::Vec4 OctTree::get_accel(const mathing::Vec4 &position) {
 
 void OctTree::setSmooth(double smooth_param) {
     SMOOTH = smooth_param;
+}
+
+OctTree::~OctTree() {
+    delete root;
 }

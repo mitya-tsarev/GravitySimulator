@@ -37,6 +37,8 @@ private:
         double getSumMass();
 
         Node(const mathing::Vec4 &pos, double size, const mathing::Vec4 &posM, double sumMass);
+        ~Node();
+
         static Node *
         createOrInsert(Node *n, const mathing::Vec4 &posit, double h, const mathing::Vec4 &posit_m, double m);
         bool isLeaf();
@@ -55,6 +57,7 @@ public:
 
     OctTree(double minCoord, double maxCoord) : minCoord(minCoord), maxCoord(maxCoord), SMOOTH(0) {}
     OctTree(double minCoord, double maxCoord, double smooth) : minCoord(minCoord), maxCoord(maxCoord), SMOOTH(smooth) {}
+    ~OctTree();
     Node *getRoot();
     double getSmoothParam();
     void setSmooth(double smooth_param);

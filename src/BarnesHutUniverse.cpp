@@ -7,6 +7,7 @@ void BarnesHutUniverse::updateAccels() {
     for (auto b : body) {
         b->setAccel(tree->get_accel(b->getPos()));
     }
+    destroyTree();
 }
 
 void BarnesHutUniverse::constructTree(double smoothParam) {
