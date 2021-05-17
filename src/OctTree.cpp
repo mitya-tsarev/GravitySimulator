@@ -1,7 +1,3 @@
-//
-// Created by mitya on 5/17/2021.
-//
-
 #include "../include/OctTree.h"
 #include "../include/Constants.h"
 
@@ -57,7 +53,7 @@ bool OctTree::Node::isLeaf() {
 }
 
 mathing::Vec4 OctTree::Node::get_accel(const mathing::Vec4 &position) {
-    mathing::Vec4 ab = mathing::Vec4(pos_m);
+    mathing::Vec4 ab = pos_m;
     ab -= position;
     double l = ab.Length3();
     if (isLeaf()) {

@@ -1,5 +1,5 @@
-#ifndef TEST_INPUT_OCTTREE_H
-#define TEST_INPUT_OCTTREE_H
+#ifndef GRAVITYSIMULATOR_OCTTREE_H
+#define GRAVITYSIMULATOR_OCTTREE_H
 
 #include <vector>
 #include "vector.h"
@@ -66,4 +66,4 @@ public:
 };
 
 
-#endif //TEST_INPUT_OCTTREE_H
+#endif //GRAVITYSIMULATOR_OCTTREE_H

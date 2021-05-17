@@ -6,11 +6,13 @@
 
 class BarnesHutUniverse : public LinearTimeUniverse {
     double TAU;
-    OctTree* tree;
+    OctTree* tree = nullptr;
 public:
+    BarnesHutUniverse() = delete;
     explicit BarnesHutUniverse(double dt, double tau, int method);
-
     void updateAccels() override;
+    void constructTree(double smoothParam=0);
+    void destroyTree();
 };
 
 
