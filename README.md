@@ -6,7 +6,7 @@ This project is a  multi-purpose package for solving n-body problems numerically
 ### Units
 We use the "Astronomical Unit, Solar Mass, Year" units. The constant G equals to 4π<sup>2</sup> in this units system. All the quantitative input has to be expressed in this unit system, and all the output is represented in this unit system.
 ### The first line of the input script must specify an integration scheme.
-Currently, Simple Euler, Simple Runge-Kutta, Barnes-Hut Euler, and Barnes-Hut are available. Simple integrator evaluates the accelerations of each body each timestep using pairwise interactions, spending n<sup>2</sup> operations. Euler and Runge-Kutta are the methods of performing a step once the accelerations of the bodies are calculated. The first line must start with the keyword ```method```. Next keywords must specify the integrator. Possible lines are:<br />
+Currently, Simple Euler, Simple Runge-Kutta, Barnes-Hut Euler, and Barnes-Hut Runge-Kutta are available. Simple integrator evaluates the accelerations of each body each timestep using pairwise interactions, spending n<sup>2</sup> operations. Euler and Runge-Kutta are the methods of performing a step once the accelerations of the bodies are calculated. The first line must start with the keyword ```method```. Next keywords must specify the integrator. Possible lines are:<br />
 ```method Simple Euler```<br />
 ```method Simple RungeKutta```<br />
 ```method Barnes-Hut Euler 0.05```<br />
