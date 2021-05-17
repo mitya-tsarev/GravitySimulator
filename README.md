@@ -12,4 +12,6 @@ Currently, Simple Euler, Simple Runge-Kutta, Barnes-Hut Euler, and Barnes-Hut ar
 ```method Barnes-Hut Euler 0.05```<br />
 ```method Barnes-Hut RungeKutta 0.1```<br />
 If the Barnes-Hut integrator is chosen, you have to specify the tolerance parameter tau of the Barnes-Hut scheme.
-### 
+### The second line must specify the timestep of integration. 
+The line has to start with ```timestep``` keyword followed by a number. Expample:<br />
+```timestep 0.0001```<br />
