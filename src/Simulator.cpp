@@ -7,7 +7,6 @@
 
 // split string by any of the characters in the given string
 std::vector<std::string> splitString(std::string s, const std::string& delimiter_list) {
-
     std::vector<std::string> words;
     size_t pos = 0;
     std::string token;
@@ -159,10 +158,40 @@ void Simulator::simulate() {
                 std::cout << eng << "   ";
                 output << eng << "  ";
             }
+            if (quantity.substr(0, 8) == "momentum") {
+                auto momentum = getMomentum();
+                if (quantity.substr(8, 9) == "x") {
+                    std::cout << momentum.x << "   ";
+                    output << momentum.x << "  ";
+                }
+                if (quantity.substr(8, 9) == "y") {
+                    std::cout << momentum.y << "   ";
+                    output << momentum.y << "  ";
+                }
+                if (quantity.substr(8, 9) == "z") {
+                    std::cout << momentum.z << "   ";
+                    output << momentum.z << "  ";
+                }
+            }
+            if (quantity.substr(0, 10) == "barycenter") {
+                auto bary = getBarycenter();
+                if (quantity.substr(10, 11) == "x") {
+                    std::cout << bary.x << "   ";
+                    output << bary.x << "  ";
+                }
+                if (quantity.substr(10, 11) == "y") {
+                    std::cout << bary.y << "   ";
+                    output << bary.y << "  ";
+                }
+                if (quantity.substr(10, 11) == "z") {
+                    std::cout << bary.z << "   ";
+                    output << bary.z << "  ";
+                }
+            }
         }
         std::cout << '\n';
         output << '\n';
-        //write_vtk("../" + perBodyOutputFilename + std::to_string(i));
+        write_vtk("../" + perBodyOutputFilename + std::to_string(i));
         u->update(runtime / nframes);
     }
     output.close();
@@ -200,4 +229,29 @@ double Simulator::getKinEng() {
         ke += mas[i] * v * v / 2;
     }
     return ke;
+}
+
+mathing::Vec4 Simulator::getMomentum() {
+    mathing::Vec4 momentum;
+    auto vels = u->getVelList();
+    auto mas = u->getMassList();
+    int n = mas.size();
+    for (int i = 0; i < n; i++) {
+        momentum += mas[i] * vels[i];
+    }
+    return momentum;
+}
+
+mathing::Vec4 Simulator::getBarycenter() {
+    mathing::Vec4 bary;
+    double totalm = 0;
+    auto pos = u->getVelList();
+    auto mas = u->getMassList();
+    int n = mas.size();
+    for (int i = 0; i < n; i++) {
+        bary += mas[i] * pos[i];
+        totalm += mas[i];
+    }
+    bary = bary / totalm;
+    return bary;
 }

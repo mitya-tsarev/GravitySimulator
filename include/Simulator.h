@@ -25,6 +25,8 @@ public:
     std::vector<double> getPerBodyVels();
     double getPotEng();
     double getKinEng();
+    mathing::Vec4 getMomentum();
+    mathing::Vec4 getBarycenter();
 };
 
 

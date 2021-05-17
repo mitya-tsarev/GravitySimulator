@@ -1,8 +1,8 @@
 method Simple Euler
 timestep 0.0001
 create body 1 -2 0 0 0 -4 0
-create body 2 1 0 0 0 2 0
+create body 2  1 0 0 0  2 0
 nframes 100
 save perbody perbodyOutput mass velocity
-save global globalOutput time potentialenergy kineticenergy totalenergy
-run 1
+save global globalOutput time potentialenergy kineticenergy totalenergy momentumy barycenterz
+run 3
