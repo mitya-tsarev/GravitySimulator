@@ -11,7 +11,7 @@ protected:
     double global_time = 0;
 public:
     explicit LinearTimeUniverse(double dt, int method);
-    ~LinearTimeUniverse();
+    virtual ~LinearTimeUniverse();
 
     int method = 0; //0 - Euler, 1 - Runge-Kutta
 
