@@ -4,6 +4,17 @@ This project is a  multi-purpose package for solving n-body problems numerically
 **`Ubuntu`**  | [![Build Status](https://travis-ci.com/mitya-tsarev/GravitySimulator.svg?branch=master)](https://travis-ci.com/mitya-tsarev/GravitySimulator)
 
 ## Installation, building, and running
+This project can be built with CMake. To do this, go into the project's root directory and perform the standard 
+```
+mkdir build
+cd build
+cmake ..
+make
+```
+You can now run the GravitySimulator executable passing an input file as a flag. For example
+```
+./GravitySimulator mySolarSystemInput
+```
 
 ## Documentation
 ### Units
