@@ -3,9 +3,7 @@
 LinearTimeUniverse::LinearTimeUniverse(double dt, int method) : dt(dt), method(method) {}
 
 LinearTimeUniverse::~LinearTimeUniverse(){
-    for(auto b : body) {
-        delete b;
-    }
+    for (auto b : body) delete b;
 }
 
 void LinearTimeUniverse::addBody(mathing::Vec4 pos, mathing::Vec4 vel, double mass) {
