@@ -11,7 +11,7 @@ cd build
 cmake ..
 make
 ```
-You can now run the GravitySimulator executable passing an input file as a flag. For example
+You can now run the GravitySimulator executable, passing an input file as a flag. For example
 ```
 ./GravitySimulator mySolarSystemInput
 ```
