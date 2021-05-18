@@ -19,7 +19,7 @@ cd build
 cmake ..
 make
 ```
-You can now run the GravitySimulator executable, passing an input file as a flag. For example, you can run a script from the examples repository:
+You can now run the GravitySimulator executable, passing an input file as a flag. For example, you can run a script from the examples directory:
 ```
 cd ../examples/
 ../build/GravitySimulator figure-eight.in 
