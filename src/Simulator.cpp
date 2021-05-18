@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <sys/stat.h>
 
 
 // split string by any of the characters in the given string
@@ -145,7 +146,7 @@ void Simulator::write_vtk(const std::string &filename) {
 
 void Simulator::simulate() {
     std::ofstream output;
-    output.open("../" + globalOutputFilename);
+    output.open(globalOutputFilename);
 
     for (auto s : saveGlobal) {
         std::cout << s << " ";
@@ -207,7 +208,7 @@ void Simulator::simulate() {
         }
         std::cout << '\n';
         output << '\n';
-        write_vtk("../" + perBodyOutputFilename + std::to_string(i));
+        write_vtk(perBodyOutputFilename + std::to_string(i));
         u->update(runtime / nframes);
     }
     output.close();
