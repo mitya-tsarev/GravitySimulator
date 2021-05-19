@@ -28,9 +28,10 @@ std::vector<std::vector<std::string>> utilities::getallwords(std::ifstream &inpu
         std::vector<std::string> words;
         std::vector<std::string> curwords = splitString(line, "\t ");
         words.insert(words.end(), curwords.begin(), curwords.end());
-        if (words.front().substr(0, 1) == "#") {
+        if (words.empty())
             continue;
-        }
+        if (words.front()[0] == '#')
+            continue;
 
         if (words.back().back() != '\\') {
             ans.push_back(words);
