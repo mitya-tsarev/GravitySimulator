@@ -32,6 +32,7 @@ public:
     mathing::Vec4 getMomentum();
     mathing::Vec4 getBarycenter();
     void addCluster(std::vector<std::string> words);
+    void addDisk(std::vector<std::string> words);
 };
 
 

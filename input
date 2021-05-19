@@ -1,0 +1,11 @@
+method BarnesHut RungeKutta 0.01
+timestep 0.001
+create body 1 0 0 0 0 0 0
+create body 0.01 1 0 0 0 6 0
+#create body 1 1 -1 0 0 0 0
+#create disk n 100 mass constant 0 normal 0 0 1 radius 5 height 0.1 centralmass 1 center 0 0 0
+nframes 100
+save perbody perbodyOutput mass velocity
+save global globalOutput time potentialenergy \
+		kineticenergy totalenergy barycenterx momentumy
+run 5

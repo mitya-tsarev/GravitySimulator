@@ -3,50 +3,38 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <sys/stat.h>
+#include "../include/utilities.h"
 
-
-// split string by any of the characters in the given string
-std::vector<std::string> splitString(std::string s, const std::string &delimiter_list) {
-    std::vector<std::string> words;
-    size_t pos = 0;
-    std::string token;
-    while ((pos = s.find_first_of(delimiter_list)) != std::string::npos) {
-        token = s.substr(0, pos);
-        if (!token.empty()) words.push_back(token);
-        s.erase(0, pos + 1);
-    }
-    if (!s.empty()) words.push_back(s);
-    return words;
-}
 
 
 Simulator::Simulator(std::ifstream &inputfile) {
-    std::string line;
+    /*std::string line;
     std::string method;
     std::vector<std::string> words;
     getline(inputfile, method);
     getline(inputfile, line);
-    words = splitString(line, "\t ");
+    words = utilities::splitString(line, "\t ");
     double dt = std::stod(words[1]);
-    words = splitString(method, "\t ");
+    words = utilities::splitString(method, "\t ");*/
+    auto allwords = utilities::getallwords(inputfile);
+    double dt = std::stod(allwords[1][1]);
 
-    if (words[1] == "BarnesHut") {
+    if (allwords[0][1] == "BarnesHut") {
         int m = 1;
-        double tau = stod(words[3]);
-        if (words[2] == "Euler")
+        double tau = stod(allwords[0][3]);
+        if (allwords[0][2] == "Euler")
             m = 0;
         u = new BarnesHutUniverse(dt, tau, m);
     }
-    if (words[1] == "Simple") {
+    if (allwords[0][1] == "Simple") {
         int m = 1;
-        if (words[2] == "Euler")
+        if (allwords[0][2] == "Euler")
             m = 0;
         u = new SimpleUniverse(dt, m);
     }
 
-    while (getline(inputfile, line)) {
-        words = splitString(line, "\t ");
+    for (int i = 2; i < allwords.size(); i++) {
+        std::vector<std::string> words = allwords[i];
         if (words[0] == "create") {
             if (words[1] == "body") {
                 u->addBody(mathing::Vec4(std::stod(words[3]), std::stod(words[4]), std::stod(words[5]), 0),
@@ -429,3 +417,15 @@ void Simulator::addCluster(std::vector<std::string> words) {
         u->addBody(mathing::Vec4(x_, y_, z_, 0), mathing::Vec4(vx_, vy_, vz_, 0), m_);
     }
 }
+
+void Simulator::addDisk(std::vector<std::string> words) {
+    int N = 1;
+    double radius;
+    mathing::Vec4 normal;
+    double centralMass = 0;
+    std::string distm = "constant";
+    std::vector<double> paramsm;
+
+}
+
+
