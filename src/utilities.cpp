@@ -37,7 +37,10 @@ std::vector<std::vector<std::string>> utilities::getallwords(std::ifstream &inpu
             ans.push_back(words);
             continue;
         } else {
+            std::string last = words.back();
             words.pop_back();
+            if (last != "\\")
+                words.push_back(last.substr(0, last.size() - 1));
         }
         while (getline(inputfile, line)) {
             curwords = splitString(line, "\t ");
