@@ -8,7 +8,7 @@
 class AbstractUniverse {
 
 public:
-    const double G = 4 * M_PI * M_PI;
+    constexpr static const double G = 4 * M_PI * M_PI;
     virtual ~AbstractUniverse() {};
     virtual std::vector<mathing::Vec4> getPosList() = 0;
     virtual std::vector<mathing::Vec4> getVelList() = 0;

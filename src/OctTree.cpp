@@ -1,5 +1,7 @@
 #include "../include/OctTree.h"
 #include "../include/Constants.h"
+#include "../include/AbstractUniverse.h"
+#include "../include/utilities.h"
 
 
 double OctTree::Node::getX() {
@@ -117,7 +119,7 @@ OctTree::Node *OctTree::Node::insert(const mathing::Vec4 &posit_m, double m) {
 }
 
 mathing::Vec4 OctTree::Node::calcNode(mathing::Vec4 ab, double l) {
-    return ab *= (Constants::G * sum_mass / (l * (l * l))); //TODO add SMOOTH * SMOOTH to l * l
+    return ab *= (AbstractUniverse::G * sum_mass / (l * (l * l + utilities::SMOOTH * utilities::SMOOTH))); //TODO add SMOOTH * SMOOTH to l * l
 }
 
 mathing::Vec4 OctTree::Node::calcLeaf(const mathing::Vec4 &position, const mathing::Vec4 &ab, double l) {
