@@ -1,11 +1,11 @@
 method BarnesHut RungeKutta 0.01
-timestep 0.001
+timestep 0.01
 
 
 create body 1 0 0 0 0 0 0
-create body 0.01 1 0 0 0 6 0
-#create disk n 100 mass constant 0 normal 0 0 1 radius 5 height \
-#			0.1 centralmass 1 center 0 0 0
+#create body 0.1 4 0 0 0 3 0
+create disk n 100 mass constant 0 normal 0 0 1 radius 10 height \
+			1 centralmass 1 center 0 0 0 centervelocity 0 0 0
 
 
 nframes 100
