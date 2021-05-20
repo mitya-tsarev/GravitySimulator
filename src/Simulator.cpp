@@ -6,7 +6,6 @@
 #include "../include/utilities.h"
 
 
-
 Simulator::Simulator(std::ifstream &inputfile) {
     /*std::string line;
     std::string method;
@@ -43,6 +42,8 @@ Simulator::Simulator(std::ifstream &inputfile) {
             }
             if (words[1] == "cluster")
                 addCluster(words);
+            if (words[1] == "disk")
+                addDisk(words);
         }
         if (words[0] == "run")
             runtime = std::stod(words[1]);
@@ -420,12 +421,77 @@ void Simulator::addCluster(std::vector<std::string> words) {
 
 void Simulator::addDisk(std::vector<std::string> words) {
     int N = 1;
-    double radius;
+    double radius, height, centralmass, clustermass;
     mathing::Vec4 normal;
+    mathing::Vec4 center;
+    mathing::Vec4 centerVel;
     double centralMass = 0;
-    std::string distm = "constant";
+    std::string distmass = "constant";
     std::vector<double> paramsm;
 
+    for (int i = 2; i < words.size(); i++) {
+        if (words[i] == "n") {
+            N = stoi(words[i + 1]);
+            i++;
+            continue;
+        }
+        if (words[i] == "mass") {
+            distmass = words[i + 1];
+            if (distmass == "constant") {
+                paramsm.push_back(stod(words[i + 2]));
+                i += 2;
+                clustermass = N * stod(words[i + 2]);
+                continue;
+            }
+            if (distmass == "uniform") {
+                paramsm.push_back(stod(words[i + 2]));
+                paramsm.push_back(stod(words[i + 3]));
+                clustermass = N * (stod(words[i + 2]) + stod(words[i + 3])) / 2;
+                i += 3;
+                continue;
+            }
+        }
+        if (words[i] == "normal") {
+            normal = mathing::Vec4(stod(words[i + 1]), stod(words[i + 2]), stod(words[i + 3]));
+            i += 3;
+            continue;
+        }
+        if (words[i] == "radius") {
+            radius = stod(words[i + 1]);
+            i++;
+            continue;
+        }
+        if (words[i] == "height") {
+            height = stod(words[i + 1]);
+            i++;
+            continue;
+        }
+        if (words[i] == "centralmass") {
+            centralmass = stod(words[i+1]);
+            i++;
+            continue;
+        }
+        if (words[i] == "center") {
+            center = mathing::Vec4(stod(words[i + 1]), stod(words[i + 2]), stod(words[i + 3]));
+            i += 3;
+            continue;
+        }
+        if (words[i] == "centervelocity") {
+            centerVel = mathing::Vec4(stod(words[i + 1]), stod(words[i + 2]), stod(words[i + 3]));
+            i += 3;
+            continue;
+        }
+    }
+    for (int i = 0; i < N; i++) {
+        double m_;
+        if (distmass == "uniform")
+            m_ = utilities::uniform(paramsm[0], paramsm[1]);
+        if (distmass == "constant")
+            m_ = paramsm[0];
+        double G = u->G;
+        auto d = utilities::disk(center, centerVel, normal, centralmass, radius, height, clustermass, G);
+        u->addBody(d.first, d.second, m_);
+    }
 }
 
 
