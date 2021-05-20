@@ -1,0 +1,12 @@
+method Simple RungeKutta
+timestep 0.001
+
+create body 1 0 0 0 0 0 0
+create body 0.5 1 0 0 0 6 0
+set momentum 0 0 0
+set barycenter 0 0 0
+
+nframes 100
+save perbody perbodyOutput mass velocity
+save global globalOutput time potentialenergy kineticenergy totalenergy
+run 3
